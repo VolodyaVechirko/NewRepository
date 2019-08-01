@@ -9,7 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import kotlin.reflect.KClass
 
 const val BASE_URL = "https://reqres.in/api/"
 
@@ -22,7 +21,10 @@ interface Api {
     ): Paginated<UserEntity>
 
     @GET("users/{id}")
-    suspend fun getUser(@Path("id") id: Int): Wrapped<UserEntity>
+    suspend fun getUser(
+        @Path("id") id: Int,
+        @Query("delay") delay: Int = 3
+    ): Wrapped<UserEntity>
 }
 
 private fun client(): OkHttpClient {
